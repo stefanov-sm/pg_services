@@ -64,7 +64,8 @@ The service definition would comprise of the parameterized sql query in a text f
 - Either create an activity log database table (see below) and modify `include/logger.sql.config` accordingly (see below) or rename/remove `include/logger.sql.config` to disable activity logging.  
 
 Now the details  
-... more to come here ...
+### ... more to come here ...
 
+![image](https://github.com/stefanov-sm/pg_services/assets/26185804/baa4f4ba-4c00-4c24-bf2b-6032d2fa23cb)
 ![image](https://github.com/stefanov-sm/pg_services/assets/26185804/54f7d56c-bfda-4b63-8bbc-e3161309b589)
 
