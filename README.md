@@ -56,16 +56,19 @@ The service definition would comprise of the parameterized sql query in a text f
  - returning a single value as is
  - returning no result (null)
 
-## Sample server deployment on node.js and PostgreSQL
+## Server deployment on node.js and PostgreSQL
 - Download ***pg_services***;
-- Create a folder for your `<base_url>`;
+- Make a base folder for the server;
 - Extract the ***pg_services*** files and folders into it;
 - Either modify `include/db.connection.config` or delete it and set environment variables to [connect](https://node-postgres.com/features/connecting) to your PostgreSQL database;
-- Either create an activity log database table (see below) and modify `include/logger.sql.config` accordingly (see below) or rename/remove `include/logger.sql.config` to disable activity logging.  
-
-Now the details  
-### ... more to come here ...
+- Either create an activity log database table (see `config/log.table.sql`) and modify `config/logger.sql.config` accordingly (see below) or rename/remove `config/logger.sql.config` to disable activity logging
+- From the command line run `node path_to/pg_services.mjs port_to_listen`;
+- `port_to_listen` is optional, default 880.
 
 ![image](https://github.com/stefanov-sm/pg_services/assets/26185804/baa4f4ba-4c00-4c24-bf2b-6032d2fa23cb)
+
+### ... more to come here ...
+Now the details  
+
 ![image](https://github.com/stefanov-sm/pg_services/assets/26185804/54f7d56c-bfda-4b63-8bbc-e3161309b589)
 
