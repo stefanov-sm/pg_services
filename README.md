@@ -1,5 +1,5 @@
 # ***pg_services*** - RESTful web services in SQL
-### PostgreSQL query to  service generator under node.js  
+### PostgreSQL query-to-web-service generator under node.js  
 
 
 ## About
