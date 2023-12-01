@@ -11,14 +11,14 @@ export default class helpers
   }
 
   static JSON_safe(json_text) {
-  	try
-  	{
-  	  return JSON.parse(json_text);
-  	}
-  	catch (iognored)
-  	{
-  	  return null;
-  	}
+    try
+    {
+      return JSON.parse(json_text);
+    }
+    catch (ignored)
+    {
+      return null;
+    }
   }
 
   static ip_in_network(ip, network) {
