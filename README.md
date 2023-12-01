@@ -63,7 +63,8 @@ The service definition would comprise of the parameterized sql query in a text f
 - Either modify `include/db.connection.config` or delete it and set environment variables to [connect](https://node-postgres.com/features/connecting) to your PostgreSQL database;
 - Either create an activity log database table (see below) and modify `include/logger.sql.config` accordingly (see below) or rename/remove `include/logger.sql.config` to disable activity logging.  
 
-Now the details
+Now the details  
+... more to come here ...
 
 ![image](https://github.com/stefanov-sm/pg_services/assets/26185804/54f7d56c-bfda-4b63-8bbc-e3161309b589)
 
