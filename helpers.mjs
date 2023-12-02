@@ -46,7 +46,7 @@ export default class helpers
     const retval = (s, m) => ({message:m, status:s});
 
     if (!config_arguments)
-      return retval(false, 'No service (config arguments)');
+        return retval(false, 'No service (config arguments)');
 
     for (const cfg_argument_name in config_arguments) {
       const cfg_argument = config_arguments[cfg_argument_name];
@@ -59,24 +59,24 @@ export default class helpers
           return retval(false, `Call argument ${cfg_argument_name} missing`);
       }
       else if (cfg_argument.constant)
-      	return retval(false, `Call argument ${cfg_argument_name} constant override`);
+        return retval(false, `Call argument ${cfg_argument_name} constant override`);
 
       if (!cfg_argument.type || !ARG_TYPES.includes(cfg_argument.type))
-      	return retval(false, `No service (argument type for ${cfg_argument_name} invalid or missing)`);
+        return retval(false, `No service (argument type for ${cfg_argument_name} invalid or missing)`);
 
       if (cfg_argument.type.replace('text','string') !== typeof target_arguments[cfg_argument_name])
-      	return retval(false, `Call argument ${cfg_argument_name} type mismatch`);
+        return retval(false, `Call argument ${cfg_argument_name} type mismatch`);
 
       if (
           cfg_argument.type === 'text'
           && cfg_argument.pattern
           && !target_arguments[cfg_argument_name].match(new RegExp(cfg_argument.pattern, 'i'))
          )
-      	return retval(false, `Call argument ${cfg_argument_name} pattern mismatch`);
+        return retval(false, `Call argument ${cfg_argument_name} pattern mismatch`);
     }
     for (const target_argument_name in target_arguments) {
       if (!(target_argument_name in config_arguments))
-      	return retval(false, `Unexpected call argument ${target_argument_name}`);
+        return retval(false, `Unexpected call argument ${target_argument_name}`);
     }
     return retval(true, null);
   }
