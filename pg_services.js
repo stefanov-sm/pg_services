@@ -114,8 +114,8 @@ async function handle_request(target_name, request_data, req, res) {
   }
   catch (err)
   {
-  	const error_text = `${(new Date()).toISOString()}, ${target_name}: ${err.message || '*'}\n`;
-  	fs.writeFileSync(errorlog_filename, error_text, {flag:'a', flush:true});
+    const error_text = `${(new Date()).toISOString()}, ${target_name}: ${err.message || '*'}\n`;
+    fs.writeFileSync(errorlog_filename, error_text, {flag:'a', flush:true});
     helpers.err(res, 'Temporarily out of service');
   }
 }
