@@ -32,7 +32,7 @@ class Helpers
   static caller_ip(req) {
     return (req.headers['x-forwarded-for']?.split(',').shift() ??
             req.socket.remoteAddress).split(':').pop();
-  }
+  } // This may need improvement
 
   static ip_in_list(ip, iplist) {
     for (const running_ip of iplist)
