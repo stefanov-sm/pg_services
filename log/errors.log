@@ -1,18 +1,2 @@
-2023-12-02T14:40:23.309Z: ENOENT: no such file or directory, open 'd:\NodeJS files\tests\services\queries\get_it.sql'
-2023-12-02T17:49:16.087Z: helpers is not defined
-2023-12-02T17:57:20.596Z: helpers is not defined
-2023-12-02T17:57:23.143Z: helpers is not defined
-2023-12-02T18:06:26.909Z: helpers is not defined
-2023-12-02T18:10:16.815Z: helpers is not defined
-2023-12-02T19:07:52.192Z: helpers is not defined
-2023-12-02T19:11:31.532Z: helpers is not defined
-2023-12-02T19:12:42.023Z: helpers is not defined
-2023-12-02T19:13:51.215Z: helpers is not defined
-2023-12-02T19:22:19.949Z: helpers is not defined
-2023-12-02T19:25:20.935Z: helpers is not defined
-2023-12-02T19:25:24.087Z: helpers is not defined
-2023-12-02T19:26:58.136Z: helpers is not defined
-2023-12-02T20:10:35.638Z, mishi: ENOENT: no such file or directory, open 'D:\NodeJS files\tests\services\queries\mishi.sql'
-2023-12-02T20:13:11.125Z, mishi: ENOENT: no such file or directory, open 'D:\NodeJS files\tests\services\queries\mishi.sql'
 2023-12-02T20:21:58.367Z, mishi: ENOENT: no such file or directory, open 'D:\NodeJS files\tests\services\queries\mishi.sql'
 2023-12-02T20:31:11.561Z, mishi: database: syntax error at or near "tests"
