@@ -15,7 +15,7 @@ export default class helpers
     {
       return JSON.parse(json_text);
     }
-    catch (ignored)
+    catch (iognored)
     {
       return null;
     }
@@ -42,13 +42,15 @@ export default class helpers
   }
 
   static manage_arguments(target_arguments, config_arguments) {
-	const ARG_TYPES = ['number','boolean','text'];
-	const retval = (s, m) => ({message:m, status:s});
-    for (const cfg_argument_name in config_arguments)
-    {
+    const ARG_TYPES = ['number','boolean','text'];
+    const retval = (s, m) => ({message:m, status:s});
+
+    if (!config_arguments)
+      return retval(false, 'No service (config arguments)');
+
+    for (const cfg_argument_name in config_arguments) {
       const cfg_argument = config_arguments[cfg_argument_name];
-      if (!(cfg_argument_name in target_arguments))
-      {
+      if (!(cfg_argument_name in target_arguments)) {
         if (cfg_argument.default)
           target_arguments[cfg_argument_name] = cfg_argument.default;
         else if (cfg_argument.constant)
@@ -60,7 +62,7 @@ export default class helpers
       	return retval(false, `Call argument ${cfg_argument_name} constant override`);
 
       if (!cfg_argument.type || !ARG_TYPES.includes(cfg_argument.type))
-      	return retval(false, `Argument type for ${cfg_argument_name} invalid or missing`);
+      	return retval(false, `No service (argument type for ${cfg_argument_name} invalid or missing)`);
 
       if (cfg_argument.type.replace('text','string') !== typeof target_arguments[cfg_argument_name])
       	return retval(false, `Call argument ${cfg_argument_name} type mismatch`);
@@ -72,8 +74,7 @@ export default class helpers
          )
       	return retval(false, `Call argument ${cfg_argument_name} pattern mismatch`);
     }
-    for (const target_argument_name in target_arguments)
-    {
+    for (const target_argument_name in target_arguments) {
       if (!(target_argument_name in config_arguments))
       	return retval(false, `Unexpected call argument ${target_argument_name}`);
     }
