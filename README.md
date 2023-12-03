@@ -85,9 +85,6 @@ The service definition comprises of the parameterized sql query in a text file a
              └folder 'log'
                      └file 'error.log'
 ```
-![image](https://github.com/stefanov-sm/pg_services/assets/26185804/6f449df3-704e-4455-93f3-4263bdfe6491)
-
-![image](https://github.com/stefanov-sm/pg_services/assets/26185804/54f7d56c-bfda-4b63-8bbc-e3161309b589)
 ## Details and reference
 ## Server configuration
 
@@ -123,8 +120,8 @@ create table tests.pg_services_log
 ## Service definition
 
 Service definitions reside in folder `services` above the base folder. Each service definition comprises of these two files:
- - `<service_name>.config.json` - mandatory, contains the service manifest
- - `<query_file_name>.sql` - mandatory, contains the service query
+ - `<service_name>.config.json` - contains the service manifest
+ - `<query_file_name>.sql` - contains the service query
  
 _The service example executes a parametrized SQL query and returns a table._  
 _See demo.config.json and demo.sql in the example below._
@@ -133,7 +130,7 @@ _See demo.config.json and demo.sql in the example below._
 
 `<service_name>.config.json` file contains the service manifest (metadata and arguments' definitions).  
 
-- Manifest file _services/demo.config.json_  
+### Manifest file _services/demo.config.json_  
 Contains a JSON object
 ```json
 {
@@ -170,12 +167,14 @@ Contains a JSON object
 - **iplist** - optional array of text representing IP addresses and ranges. If present then only caller IPs within these ranges are allowed  
 
 > [!IMPORTANT]
-> - Service manifests and SQL files must be UTF-8 encoded.  
-> - Service manifests are not checked for validity at runtime and therefore **must** be strictly validated at service setup time. Jsonschema `manifest.schema.json` to be used with with an online [schema validator](https://www.jsonschemavalidator.net/) and `manifest.validator.js` CLI script are provided for the pupose. 
+> - Service manifests and SQL query files must be UTF-8 encoded.  
+> - Service manifests are not checked for validity at runtime and therefore **must** be strictly validated at service setup time. Jsonschema `manifest.schema.json` to be used with an online [schema validator](https://www.jsonschemavalidator.net/) and `manifest.validator.js` CLI script are provided for the purpose. 
 
-### *arguments* section
+### *arguments* section  
+> [!NOTE]
+> Applies to `POST` services only. The section shall be left empty for `GET` services, `"arguments": {}"`
 
-Service arguments are defined as `"argument_name": <argument description>`
+Service arguments are defined as `"argument_name": <argument description>`  
 
 argument description attributes:
 
@@ -194,7 +193,7 @@ Example: "label":       {"type": "text", "default": "Just a label", "pattern": "
 > [!NOTE]
 > Either "default" or "constant" or none of them may be specified but not both  
 
-- Query file _services/demo.sql_  
+### Query file _services/demo.sql_  
 Contains a parameterized SQL query
 ```sql
 WITH t (running_number) AS
@@ -205,8 +204,43 @@ SELECT (:arg ->> 'label') AS label, running_number, to_char(running_number, 'FMR
 FROM t;
 ```
 > [!IMPORTANT]
-> - The query file shall have exactly one parameter: `:arg`, case insensitive.
+> - The SQL query shall have exactly one parameter: `:arg`, case insensitive.
 > - For POST requests `:arg` contains the request payload as `JSONB`
-> - For GET requests `:arg` contains the trailing part of the request URL after the service name as `text`
+> - For GET requests `:arg` contains the trailing part of the request URL after the service name as `text`  
 
+> [!NOTE]
+> Although SQL injection is taken care about by using prepared statements, an extra line of defence is never one too many. Therefore using regular expression patterns for text arguments' validation in manifest files is always a good idea.
 
+## Logging
+
+- Activity is logged by invoking the SQL query in `config/logger.sql.config` file (if any) for every call;
+- Errors are logged in file `log/error.log`.
+
+## Service invocation
+ - URL `<base_url>[:<port>]/services/<service_name>[<querystring>]`
+ - The security token is sent as `Authorization: Bearer` request header
+ - Method `POST`: call arguments are POST-ed as JSON, querystring (if any) is ignored
+ - Method `GET`: call arguments (if any) are passed as querystring, request body is ignored
+
+## cURL
+```
+curl -X POST -H 'Authorization: Bearer PTn456KSqqU7WhSszSe' -i http://localhost:881/services/demo --data '{
+ "lower_limit": 28,
+ "label": "A sample record"
+}'
+```
+
+## Service response
+
+JSON with this structure:
+
+```text
+{
+ "status": true or false,
+ "data": return data in JSON or error text
+}
+```
+
+![image](https://github.com/stefanov-sm/pg_services/assets/26185804/6f449df3-704e-4455-93f3-4263bdfe6491)
+
+![image](https://github.com/stefanov-sm/pg_services/assets/26185804/54f7d56c-bfda-4b63-8bbc-e3161309b589)
