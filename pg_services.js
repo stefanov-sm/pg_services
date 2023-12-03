@@ -56,7 +56,7 @@ async function handle_request(target_name, request_data, req, res) {
     }
     const settings = service_config.settings;
     // Check authorization
-    if (settings.token !== req.headers['authorization']) {
+    if (settings.token !== req.headers['authorization'].replace(/^bearer[\s]/i, '')) {
       helpers.err(res, 'authorization');
       return;
     }
