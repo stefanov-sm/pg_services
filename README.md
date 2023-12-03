@@ -123,10 +123,9 @@ create table tests.pg_services_log
 ## Service definition
 
 Service definitions reside in `services` (i.e. `<service config>`) folder. Each comprises of these three files:
- - `<service_name>.config.json` - mandatory, contains service metadata
+ - `<service_name>.config.json` - mandatory, contains the service manifest
  - `<sql_file_name>.sql` - mandatory, contains the service query
- - `<postprocess_file_name>.php` - optional
-
+ 
 _The service example executes a parametrized SQL query and returns a table._  
 _See demo.config.json and demo.new.sql in the example below._
 
@@ -171,7 +170,7 @@ Example: `"method": "POST"`
 Example: `"token": "PTn456KSqqU7WhSszSe"`  
 
 - **query** - mandatory text, the file name of the service sql query  
-Example: `"query": "demo.new.sql"`  
+Example: `"query": "demo.sql"`  
 
 - **response** - mandatory text, one of the predefined response modes listed below  
 
@@ -180,7 +179,7 @@ Example: `"query": "demo.new.sql"`
 |"table"| for row set returning queries. Rows are retrieved by `PDOStatement::fetchAll()` method and sent as an array of JSON objects|
 |"row"| for single row returning queries. A single row is retrieved by `PDOStatement::fetch()` method and sent as a JSON object|
 |"value"| for value returning queries. A single value is retrieved by `PDOStatement::fetchColumn()` method and sent as is|
-|"void"| no data is returned|
+|"void"| null is returned|
 
 Example: `"response": "table"`  
 
