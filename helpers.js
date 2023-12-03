@@ -1,46 +1,38 @@
 class Helpers
 {
   static err(res, err_text) {
-    res.writeHead(404, {'Content-Type': 'application/json'});
-    res.end(JSON.stringify({status: false, data: err_text || 'No service'}, null, 2));
+    if (err_text) {
+      res.writeHead(404, {'Content-Type': 'application/json'});
+      res.end(JSON.stringify({status: false, data: err_text}, null, 2));
+    }
+    else {res.writeHead(404); res.end(' ');}
   }
-
   static json_response(res, response_json) {
     res.writeHead(200, {'Content-Type': 'application/json'});
     res.end(JSON.stringify({status: true, data: response_json}, null, 2));
   }
-
   static JSON_safe(json_text) {
-    try
-    {
-      return JSON.parse(json_text);
-    }
-    catch (iognored)
-    {
-      return null;
-    }
+    try {return JSON.parse(json_text);} catch (ignored) {return null;}
   }
-
-  static ip_in_network(ip, network) {
-    const cat_binary = ((x, y) => x + parseInt(y).toString(2).padStart(8, '0'));
-    const [network_ip, network_mask] = network.split('/');
-    return network_mask ?
-      network_ip.split('.').reduce(cat_binary, '').slice(0, network_mask) === ip.split('.').reduce(cat_binary, '').slice(0, network_mask)
-    : ip === network;
-  }  
-
   static caller_ip(req) {
     return (req.headers['x-forwarded-for']?.split(',').shift() ??
             req.socket.remoteAddress).split(':').pop();
   } // This may need improvement
 
   static ip_in_list(ip, iplist) {
+    function ip_in_network(ip, network) {
+      const cat_binary = ((x, y) => x + parseInt(y).toString(2).padStart(8, '0'));
+      const [network_ip, network_mask] = network.split('/');
+      return network_mask ?
+        network_ip.split('.').reduce(cat_binary, '').slice(0, network_mask) 
+        === ip.split('.').reduce(cat_binary, '').slice(0, network_mask)
+      : ip === network;
+    }  
     for (const running_ip of iplist)
-      if (Helpers.ip_in_network(ip, running_ip))
+      if (ip_in_network(ip, running_ip))
         return true;
     return false;
   }
-
   static manage_arguments(target_arguments, config_arguments) {
     const ARG_TYPES = ['number','boolean','text'];
     const retval = (s, m) => ({message:m, status:s});
