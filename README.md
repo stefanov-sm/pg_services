@@ -85,7 +85,6 @@ The service definition comprises of the parameterized sql query in a text file a
              └folder 'log'
                      └file 'error.log'
 ```
-## Details and reference
 ## Server configuration
 
 Server configuration resides in folder `config` above the base folder. It comprises of these files:
