@@ -81,7 +81,6 @@ async function handle_request(target_name, request_data, req, res) {
         return;
       }
     }
-
     const query_text = fs.readFileSync(services_location + settings.query, 'UTF8').replace(ARG_RX, post_request ? '($1::jsonb)': '($1::text)');
     const query_object = settings.response !== 'value' ?
       {name:'service_query', text:query_text, values:[call_arguments]}:
@@ -114,10 +113,11 @@ async function handle_request(target_name, request_data, req, res) {
   }
   catch (err)
   {
-    const error_text = `${(new Date()).toISOString()}, ${target_name}: ${err.message || '*'}\n`;
-    fs.writeFileSync(errorlog_filename, error_text, {flag:'a', flush:true});
+  	const error_text = `${(new Date()).toISOString()}, ${target_name}: ${err.message || '*'}\n`;
+  	fs.writeFileSync(errorlog_filename, error_text, {flag:'a', flush:true});
     helpers.err(res, 'Temporarily out of service');
   }
 }
 
-http.createServer(server_callback).listen(SERVICE_PORT);
+http.createServer(server_callback)
+    .listen(SERVICE_PORT, () => process.stdout.write(`pg_services is listening on port ${SERVICE_PORT} ...`));
