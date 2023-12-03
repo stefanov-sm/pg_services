@@ -49,7 +49,7 @@ As a JSON array (this would be part of the service response data) the resultset 
   }
 ]
 ```
-The service definition would comprise of the parameterized sql query in a text file and a service manifest file called `<service_name>.config.json` that references the sql file. One sql file may be referred to by more than one service definition. The following response modes are supported:
+The service definition comprises of the parameterized sql query in a text file and a service manifest file called `<service_name>.config.json` that references the sql file. One sql file may be referred to by more than one manifest. The following response modes are supported:
 
  - returning the entire query rowset as a JSON array of objects
  - returning a single row as a JSON object
@@ -58,17 +58,35 @@ The service definition would comprise of the parameterized sql query in a text f
 
 ## Server deployment on node.js and PostgreSQL
 - Download ***pg_services***;
-- Make a base folder for the server;
+- Make a base folder for the server, `d:\NodeJS files\test` in the example below;
 - Extract the ***pg_services*** files and folders into it;
 - Either modify `include/db.connection.config` or delete it and set environment variables to [connect](https://node-postgres.com/features/connecting) to your PostgreSQL database;
-- Either create an activity log database table (see `config/log.table.sql`) and modify `config/logger.sql.config` accordingly (see below) or rename/remove `config/logger.sql.config` to disable activity logging
+- Either create an activity log database table (see `config/log.table.sql`) and modify `config/logger.sql.config` accordingly (see below) or rename/remove `config/logger.sql.config` to disable activity logging;
 - From the command line run `node path_to/pg_services.js port_to_listen`;
 - `port_to_listen` is optional, default 880.
-
-![image](https://github.com/stefanov-sm/pg_services/assets/26185804/4e4213de-5aee-44b2-8151-cef3a98890b7)
-
-### ... more to come here ...
-Now the details  
+- Folder contents and structure 
+```text
+<base folder> (d:\NodeJS files\test)
+             ├file 'pg_servces.js'
+             ├file 'helpers.js'
+             ├file 'manifest.validator.js'
+             ├file 'manifest.schema.json'
+             ├file 'arguments.schema.js'
+             ├folder 'config'
+             │       ├file 'db.connection.config'
+             │       ├file 'logger.sql.config'
+             │       └file 'log.table.sql'
+             ├folder 'services'
+             │       ├file 'demo.config.json'
+             │       ├file 'get_demo.config.json'
+             │       └folder 'queries'
+             │               ├file 'demo.sql'
+             │               └file 'get_demo.sql'
+             └folder 'log'
+                     └file 'error.log'
+```
+![image](https://github.com/stefanov-sm/pg_services/assets/26185804/6f449df3-704e-4455-93f3-4263bdfe6491)
 
 ![image](https://github.com/stefanov-sm/pg_services/assets/26185804/54f7d56c-bfda-4b63-8bbc-e3161309b589)
+## Details and reference
 
