@@ -5,7 +5,7 @@ class Helpers
       res.writeHead(404, {'Content-Type': 'application/json'});
       res.end(JSON.stringify({status: false, data: err_text}, null, 2));
     }
-    else {res.writeHead(404); res.end(' ');}
+    else {res.writeHead(404); res.end('\x1A');}
   }
   static json_response(res, response_json) {
     res.writeHead(200, {'Content-Type': 'application/json'});
