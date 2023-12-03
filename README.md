@@ -89,16 +89,16 @@ The service definition comprises of the parameterized sql query in a text file a
 ## Server configuration
 
 Server configuration resides in folder `config` above the base folder. It comprises of these files:
- - File _db.connection.config_ (optional)  
-   contains a node-postgres [connection string](https://node-postgres.com/features/connecting#connection-uri) **(for performance purposes consider connection pooling)**.
+ - File _config/db.connection.config_ (optional)  
+   contains a node-postgres [connection string](https://node-postgres.com/features/connecting#connection-uri) (for performance purposes consider connection pooling).
 ```text
 postgresql://
 <username>:<password>@
-<host address>:6432/
+<host>:<port>/
 <database name>
 ```
 If this file is missing then [environment variables](https://node-postgres.com/features/connecting#environment-variables) are used.
-- File _logger.sql.config_ (optional)  
+- File _config/logger.sql.config_ (optional)  
    contains a parameterized SQL query with exactly three parameters:  
    _caller IP address_, _service name_ and _call arguments_.
 
@@ -106,7 +106,7 @@ If this file is missing then [environment variables](https://node-postgres.com/f
 INSERT INTO tests.pg_services_log (call_by, call_resource, call_payload)
 VALUES ($1, $2, $3);
 ```
- - File _log.table_sql_, sample log table DDL **(you must create one so that the logger SQL query can work)**
+ - File _log.table.sql_, sample log table DDL (you must create one so that the logger SQL query can work)
 ```sql
 create table tests.pg_services_log 
 (
@@ -193,7 +193,7 @@ Example: "label":       {"type": "text", "default": "Just a label", "pattern": "
 > [!NOTE]
 > Either "default" or "constant" or none of them may be specified but not both  
 
-### Query file _services/demo.sql_  
+### Query file _services/queries/demo.sql_  
 Contains a parameterized SQL query
 ```sql
 WITH t (running_number) AS
