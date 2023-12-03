@@ -95,7 +95,7 @@ Server configuration resides in folder `config` above the base folder. It compri
 postgresql://
 <username>:<password>@
 <host>:<port>/
-<database name>
+<database>
 ```
 If this file is missing then [environment variables](https://node-postgres.com/features/connecting#environment-variables) are used.
 - File _config/logger.sql.config_ (optional)  
