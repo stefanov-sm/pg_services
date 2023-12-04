@@ -124,7 +124,7 @@ Service definitions reside in folder `services` above the base folder. Each serv
 
 The service example executes a parametrized SQL query and returns a table. See **demo.config.json** and **demo.sql** in the example below.
 
-### Manifest file _services/demo.config.json_  
+#### Manifest file _services/demo.config.json_  
 Contains a JSON object
 ```json
 {
