@@ -183,7 +183,7 @@ Either "default" or "constant" or none of them may be specified but not both. Ex
 > [!NOTE]
 > Although SQL injection is taken care about by using prepared statements, an extra line of defence is never one too many. Therefore using regular expression patterns for text arguments' validation in manifest files is always a good idea.
 
-### Query file _services/queries/demo.sql_  
+#### Query file _services/queries/demo.sql_  
 Contains a parameterized SQL query
 ```sql
 WITH t (running_number) AS
@@ -193,13 +193,15 @@ WITH t (running_number) AS
 SELECT (:arg ->> 'label') AS label, running_number, to_char(running_number, 'FMRN') AS roman_numeral
 FROM t;
 ```
-### SQL query parameter syntax  
-#### basic syntax (default)  
+#### SQL query parameter syntax  
+**basic syntax (default)**  
 - The SQL query shall have exactly one parameter: `:arg`, case insensitive;
 - For POST requests `:arg` contains the request payload as `JSONB`;
 - For GET requests `:arg` contains the trailing part of the request URL after the service name as `text`;
-- Service **get_demo** illustrates the use of GET parameters.  
-#### extended syntax (POST requests only)  
+- Service **get_demo** illustrates the use of GET parameters.   
+
+**extended syntax (POST requests only)**  
+
 The SQL query uses parameter tags like `:__<PARAMETER_NAME>__` in upper case where parameter names correspond to request JSON attributes; Parameter tags are expanded to `text` expressions at runtime. Below is the extended parameter syntax version of file _demo.sql_.
 ```sql
 WITH t (running_number) AS
@@ -209,7 +211,7 @@ WITH t (running_number) AS
 SELECT :__LABEL__ AS label, running_number, to_char(running_number, 'FMRN') AS roman_numeral
 FROM t;
 ```
-Besides better readability, extended syntax allows queries to be debugged and optimized in a [SQL client](https://dbeaver.io/) before deployment.  
+Besides more clear to read, extended syntax queries are easier to write and optimize in a [SQL client](https://dbeaver.io/) before deployment.  
 Service **xt_demo** illustrates the use of extended parameter syntax.  
 > [!IMPORTANT]
 > - Service manifests and SQL query files must be UTF-8 encoded.  
