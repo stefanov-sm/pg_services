@@ -219,6 +219,7 @@ WITH t (running_number) AS
 SELECT :__LABEL__ AS label, running_number, to_char(running_number, 'FMRN') AS roman_numeral
 FROM t;
 ```
+Besides better readability, extended syntax allows queries to be debugged and optimized in a [SQL client](https://dbeaver.io/) before deployment.  
 Service **xt_demo** illustrates the use of extended parameter syntax.  
 > [!NOTE]
 > Although SQL injection is taken care about by using prepared statements, an extra line of defence is never one too many. Therefore using regular expression patterns for text arguments' validation in manifest files is always a good idea.
@@ -232,7 +233,7 @@ Service **xt_demo** illustrates the use of extended parameter syntax.
  - URL `<base_url>[:<port>]/services/<service_name>[<querystring>]`
  - The security token is sent as `Authorization: Bearer` request header
  - Method `POST`: call arguments are POST-ed as JSON, querystring (if any) is ignored
- - Method `GET`: call arguments (if any) are passed as querystring, request body is ignored
+ - Method `GET`: call arguments (if any) are passed as querystring, request body (if any) is ignored
 
 ## cURL
 ```
