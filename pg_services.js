@@ -50,11 +50,12 @@ async function handle_request(target_name, request_data, req, res) {
   try
   {
     const service_config = JSON.parse(fs.readFileSync(services_location + target_name + CONFIG_SUFFIX, 'UTF8'));
-    if (service_config.settings.method.toUpperCase() !== req.method) {
+    const settings = service_config.settings;
+
+    if (settings.method.toUpperCase() !== req.method) {
       helpers.err(res, 'method');
       return;
     }
-    const settings = service_config.settings;
     // Check authorization
     if (settings.token !== req.headers['authorization'].replace(/^bearer[\s]/i, '')) {
       helpers.err(res, 'authorization');
@@ -81,7 +82,11 @@ async function handle_request(target_name, request_data, req, res) {
         return;
       }
     }
-    const query_text = fs.readFileSync(services_location + settings.query, 'UTF8').replace(ARG_RX, post_request ? '($1::jsonb)': '($1::text)');
+
+    const raw_query_text = fs.readFileSync(services_location + settings.query, 'UTF8');
+    const query_text = (post_request && settings.extsyntax) ?
+      helpers.sql_rewrite(raw_query_text, call_arguments):
+      raw_query_text.replace(ARG_RX, post_request ? '($1::jsonb)': '($1::text)');
     const query_object = settings.response !== 'value' ?
       {name:'service_query', text:query_text, values:[call_arguments]}:
       {name:'service_query', text:query_text, values:[call_arguments], rowMode:'array'};
