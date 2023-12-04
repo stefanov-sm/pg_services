@@ -119,14 +119,10 @@ create table tests.pg_services_log
 ## Service definition
 
 Service definitions reside in folder `services` above the base folder. Each service definition comprises of these two files:
- - `<service_name>.config.json` - contains the service manifest
- - `<query_file_name>.sql` - contains the service query
- 
+- `<service_name>.config.json` - contains the service manifest (metadata and arguments' definitions)
+- `<query_file_name>.sql` file contains a single parameterized SQL query. Advanced SQL features (CTEs, window functions, etc.) and database server programming (stored procedures/functions) alike can be used in order to implement complex data logic.  
+
 The service example executes a parametrized SQL query and returns a table. See **demo.config.json** and **demo.sql** in the example below.
-
-`<query_file_name>.sql` file contains a single parameterized SQL query. Advanced SQL features (CTEs, window functions, etc.) and database server programming (stored procedures/functions) alike can be used in order to implement complex data logic.
-
-`<service_name>.config.json` file contains the service manifest (metadata and arguments' definitions).  
 
 ### Manifest file _services/demo.config.json_  
 Contains a JSON object
