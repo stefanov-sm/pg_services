@@ -51,7 +51,7 @@ As a JSON array (this would be part of the service response data) the resultset 
 ```
 The service definition comprises of the parameterized sql query in a text file and a service manifest file called `<service_name>.config.json` that references the sql file. One sql file may be referred to by more than one manifest. The following response modes are supported:
 
- - returning the entire query rowset as a JSON array of objects
+ - returning the entire query resultset as a JSON array of objects
  - returning a single row as a JSON object
  - returning a single value as is
  - returning no result (null)
