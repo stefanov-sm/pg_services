@@ -22,7 +22,7 @@ WITH t (running_number) AS
 SELECT (:arg ->> 'label') AS label, running_number, to_char(running_number, 'FMRN') AS roman_numeral
 FROM t;
 ```
-Let's make a web service out of them. After the query is run then the raw resultset would be
+Let's make a web service out of them. When the query is run the raw resultset would be
 |label          |running_number|roman_numeral|
 |---------------|--------------|-------------|
 |A sample record|            28|XXVIII       |
