@@ -166,32 +166,27 @@ Contains a JSON object
 |"void"| null is returned|
 - **iplist** - optional array of text representing IP addresses and ranges. If present then only caller IPs within these ranges are allowed  
 
-> [!IMPORTANT]
-> - Service manifests and SQL query files must be UTF-8 encoded.  
-> - Service manifests are not checked for validity at runtime and therefore **must** be strictly validated at service setup time. Jsonschema `manifest.schema.json` to be used with an online [schema validator](https://www.jsonschemavalidator.net/) and `manifest.validator.js` CLI script are provided for the purpose. 
-
 ### *arguments* section  
 > [!NOTE]
 > Applies to `POST` services only. The section shall be left empty for `GET` services, `"arguments": {}"`
 
 Service arguments are defined as `"argument_name": <argument description>`  
-
-argument description attributes:
-
+Argument description attributes:  
 |Attribute | Required | Type | Description|
 |---|---|---|---|
 |"type"|Yes|text|Argument data type. One of "number", "text", "boolean"|
 |"default"|No|varying|Default value. Makes the service argument optional|
 |"constant"|No|varying|Non-overridable default value|
-|"pattern"|No|text|Regular expression for validation. Applicable to text arguments only|
+|"pattern"|No|text|Regular expression for validation. Applicable to text arguments only|  
 
+Either "default" or "constant" or none of them may be specified but not both. Examples:
 ```text
-Example: "lower_limit": {"type": "number", "default": 25}
-Example: "upper_limit": {"type": "number", "constant": 30}
-Example: "label":       {"type": "text", "default": "Just a label", "pattern": "/^[A-ZА-Я 0-9]+$/ui"}
+"lower_limit": {"type": "number", "default": 25}
+"upper_limit": {"type": "number", "constant": 30}
+"label":       {"type": "text", "default": "Just a label", "pattern": "/^[A-ZА-Я 0-9]+$/ui"}
 ```
 > [!NOTE]
-> Either "default" or "constant" or none of them may be specified but not both  
+> Although SQL injection is taken care about by using prepared statements, an extra line of defence is never one too many. Therefore using regular expression patterns for text arguments' validation in manifest files is always a good idea.
 
 ### Query file _services/queries/demo.sql_  
 Contains a parameterized SQL query
@@ -221,8 +216,9 @@ FROM t;
 ```
 Besides better readability, extended syntax allows queries to be debugged and optimized in a [SQL client](https://dbeaver.io/) before deployment.  
 Service **xt_demo** illustrates the use of extended parameter syntax.  
-> [!NOTE]
-> Although SQL injection is taken care about by using prepared statements, an extra line of defence is never one too many. Therefore using regular expression patterns for text arguments' validation in manifest files is always a good idea.
+> [!IMPORTANT]
+> - Service manifests and SQL query files must be UTF-8 encoded.  
+> - Service manifests are not checked for validity at runtime and therefore **must** be strictly validated at service setup time. JSON schema `manifest.schema.json` (to be used with an online [schema validator](https://www.jsonschemavalidator.net/)) and `manifest.validator.js` CLI script are provided for the purpose.  
 
 ## Logging
 
