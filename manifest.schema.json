@@ -1,6 +1,6 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "title": "pg_services manifest validation schema",
+  "title": "pg_services manifest schema",
   "type": "object",
   "required": ["settings", "arguments"],
   "additionalProperties": false,
@@ -11,10 +11,11 @@
       "type": "object",
       "properties":
       {
-        "method":   {"type": "string", "enum": ["GET", "POST"]},
-        "token":    {"type": "string", "pattern": "^[A-Za-z0-9]{16,64}$"},
-        "query":    {"type": "string", "pattern": "^([\\w,\\s-\\/]+\\.)+sql$"},
-        "response": {"type": "string", "enum": ["table", "row", "value", "void"]},
+        "extsyntax": {"type": "boolean"},
+        "method":    {"type": "string", "enum": ["GET", "POST"]},
+        "token":     {"type": "string", "pattern": "^[A-Za-z0-9]{16,64}$"},
+        "query":     {"type": "string", "pattern": "^([\\w,\\s-\\/]+\\.)+sql$"},
+        "response":  {"type": "string", "enum": ["table", "row", "value", "void"]},
         "iplist":
         {
           "type": "array",
