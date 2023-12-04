@@ -205,9 +205,10 @@ FROM t;
 ```
 ### SQL query parameter syntax  
 #### basic syntax (default)  
-- The SQL query shall have exactly one parameter: `:arg`, case insensitive.
-- For POST requests `:arg` contains the request payload as `JSONB`
-- For GET requests `:arg` contains the trailing part of the request URL after the service name as `text`  
+- The SQL query shall have exactly one parameter: `:arg`, case insensitive;
+- For POST requests `:arg` contains the request payload as `JSONB`;
+- For GET requests `:arg` contains the trailing part of the request URL after the service name as `text`;
+- Service **get_demo** illustrates the use of GET parameters.  
 #### extended syntax (POST requests only)  
 The SQL query uses parameter tags like `:__<PARAMETER_NAME>__` in upper case where parameter names correspond to request JSON attributes; Below is the extended parameter syntax version of file _demo.sql_.
 ```sql
