@@ -1,7 +1,6 @@
 # ***pg_services*** - web services in SQL
 ### PostgreSQL query-to-web-service generator under node.js  
 
-
 ## About
 ***pg_services*** is a simple __vanilla platform with no dependencies__ that wraps and exposes parameterized SQL queries as JSON web services in a flexible and secure way. 
 The implementation and sample services run on [node.js](https://nodejs.org) and [PostgreSQL](https://www.postgresql.org/).  
@@ -235,7 +234,6 @@ curl -X POST -H 'Authorization: Bearer PTn456KSqqU7WhSszSe' -i http://localhost:
  "label": "A sample record"
 }'
 ```
-
 ## Service response
 
 JSON with this structure:
@@ -246,6 +244,12 @@ JSON with this structure:
  "data": return data in JSON or error text
 }
 ```
+## POST arguments validation schema
+Arguments validation JSON schema from service manifest generator  
+`node path_to/arguments.schema.js path_to/<service manifest file>`  
+
+
+## Screenshots
 
 ![image](https://github.com/stefanov-sm/pg_services/assets/26185804/6f449df3-704e-4455-93f3-4263bdfe6491)
 
