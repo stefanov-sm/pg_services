@@ -93,11 +93,12 @@ async function handle_request(target_name, request_data, req, res) {
     await pg_client.connect();
     try
     {
-      // Optional logger
       if (fs.existsSync(config_location + LOGGER_FILENAME))
-      {
-        await pg_client.query(fs.readFileSync(config_location + LOGGER_FILENAME, 'UTF8'), [caller_ip, target_name, request_data]);
-      }
+        await pg_client.query({
+                name:'log_query',
+                text:fs.readFileSync(config_location + LOGGER_FILENAME, 'UTF8'), 
+                values:[caller_ip, target_name, request_data]
+               });
       const db_response = await pg_client.query(query_object);
       switch (settings.response)
       {
