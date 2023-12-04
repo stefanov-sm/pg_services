@@ -203,11 +203,22 @@ WITH t (running_number) AS
 SELECT (:arg ->> 'label') AS label, running_number, to_char(running_number, 'FMRN') AS roman_numeral
 FROM t;
 ```
-> [!IMPORTANT]
-> - The SQL query shall have exactly one parameter: `:arg`, case insensitive.
-> - For POST requests `:arg` contains the request payload as `JSONB`
-> - For GET requests `:arg` contains the trailing part of the request URL after the service name as `text`  
-
+### SQL query parameter syntax  
+#### basic syntax (default)  
+- The SQL query shall have exactly one parameter: `:arg`, case insensitive.
+- For POST requests `:arg` contains the request payload as `JSONB`
+- For GET requests `:arg` contains the trailing part of the request URL after the service name as `text`  
+#### extended syntax (POST requests only)  
+The SQL query uses parameter tags like `:__<PARAMETER_NAME>__` in upper case where parameter names correspond to request JSON attributes; Below is the extended parameter syntax version of file _demo.sql_.
+```sql
+WITH t (running_number) AS
+(
+  SELECT generate_series(:__LOWER_LIMIT__::integer, :__UPPER_LIMIT__::integer, 1)
+)
+SELECT :__LABEL__ AS label, running_number, to_char(running_number, 'FMRN') AS roman_numeral
+FROM t;
+```
+Service **xt_demo** illustrates the use of extended parameter syntax.  
 > [!NOTE]
 > Although SQL injection is taken care about by using prepared statements, an extra line of defence is never one too many. Therefore using regular expression patterns for text arguments' validation in manifest files is always a good idea.
 
