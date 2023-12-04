@@ -66,5 +66,20 @@ class Helpers
     }
     return retval(true, null);
   }
+  static sql_rewrite(sql, args_object) {
+    const MACRO_RX = /(\B:__[_A-Z][_A-Z0-9]*__\b)/g,
+          IDENT_RX = /^[_a-z]\w{0,30}$/i,
+          DYN_RX = (k) => new RegExp(`\\B:__${k.toUpperCase()}__\\b`,'g');
+  
+    for (const running_key in args_object) {
+      if (!running_key.match(IDENT_RX))
+        throw new Error(`Non-conforming key found, "${running_key}"`);
+      sql = sql.replace(DYN_RX(running_key), `(($1::jsonb)->>'${running_key}')`);
+    }
+    const matches = sql.match(MACRO_RX);
+    if (matches)
+      throw new Error(`Macros left: "${[...(new Set(matches))].join('", "')}"`);
+    return sql;
+  }
 }
 exports.Helpers = Helpers;
