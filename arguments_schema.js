@@ -2,7 +2,7 @@ const fs = require('fs');
 const arguments_def = JSON.parse(fs.readFileSync(process.argv[2], 'utf8')).arguments;
 
 let schema = {
-  title: 'Arguments list',
+  title: 'Argument list validator',
   description: 'Generated schema',
   type: 'object',
   properties: {},
