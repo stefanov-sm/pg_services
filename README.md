@@ -210,7 +210,7 @@ FROM t;
 - For GET requests `:arg` contains the trailing part of the request URL after the service name as `text`;
 - Service **get_demo** illustrates the use of GET parameters.  
 #### extended syntax (POST requests only)  
-The SQL query uses parameter tags like `:__<PARAMETER_NAME>__` in upper case where parameter names correspond to request JSON attributes; Below is the extended parameter syntax version of file _demo.sql_.
+The SQL query uses parameter tags like `:__<PARAMETER_NAME>__` in upper case where parameter names correspond to request JSON attributes; Parameter tags are expanded to `text` expressions at runtime. Below is the extended parameter syntax version of file _demo.sql_.
 ```sql
 WITH t (running_number) AS
 (
