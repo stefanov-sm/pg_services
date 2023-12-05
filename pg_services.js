@@ -84,7 +84,7 @@ async function handle_request(target_name, request_data, req, res) {
     }
 
     const raw_query_text = fs.readFileSync(services_location + settings.query, 'UTF8');
-    const query_text = (post_request && settings.extsyntax) ?
+    const query_text = (post_request && settings.rewrite) ?
       helpers.sql_rewrite(raw_query_text, call_arguments):
       raw_query_text.replace(ARG_RX, post_request ? '($1::jsonb)': '($1::text)');
     const query_object = settings.response !== 'value' ?
