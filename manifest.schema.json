@@ -11,11 +11,11 @@
       "type": "object",
       "properties":
       {
-        "extsyntax": {"type": "boolean"},
-        "method":    {"type": "string", "enum": ["GET", "POST"]},
-        "token":     {"type": "string", "pattern": "^[A-Za-z0-9]{16,64}$"},
-        "query":     {"type": "string", "pattern": "^([\\w,\\s-\\/]+\\.)+sql$"},
-        "response":  {"type": "string", "enum": ["table", "row", "value", "void"]},
+        "rewrite":  {"type": "boolean"},
+        "method":   {"type": "string", "enum": ["GET", "POST"]},
+        "token":    {"type": "string", "pattern": "^[A-Za-z0-9]{16,64}$"},
+        "query":    {"type": "string", "pattern": "^([\\w,\\s-\\/]+\\.)+sql$"},
+        "response": {"type": "string", "enum": ["table", "row", "value", "void"]},
         "iplist":
         {
           "type": "array",
