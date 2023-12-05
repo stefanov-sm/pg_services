@@ -131,7 +131,7 @@ Contains a JSON object
   {
     "method": "POST",
     "token": "PTn456KSqqU7WhSszSe",
-    "extsyntax": false,
+    "rewrite": false,
     "query": "queries/demo.sql",
     "response": "table",
     "iplist": ["172.30.0.0/25", "172.30.0.132", "127.0.0.1"]
@@ -158,7 +158,7 @@ Contains a JSON object
 |"value"| for value returning queries. A single value `result.rows[0][0]` is sent as is|
 |"void"| null is sent|
 - **iplist** - optional array of text representing IP addresses and ranges. If present then only caller IPs within these ranges are allowed  
-- **extsyntax** - optional boolean, default `false`. Sets "extended" SQL query parameter syntax. See [parameter syntax](#sql-query-parameter-syntax) below. Applies to `POST` services only.
+- **rewrite** - optional boolean, default `false`. Sets "extended" SQL query parameter syntax. See [parameter syntax](#sql-query-parameter-syntax) below. Applies to `POST` services only.
 
 ### *arguments* section  
 > [!NOTE]
