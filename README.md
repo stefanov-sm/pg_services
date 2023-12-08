@@ -268,6 +268,6 @@ Arguments validation JSON schema from service manifest generator
 
 ## Screenshots
 
-<img src="https://github.com/stefanov-sm/pg_services/assets/26185804/6f449df3-704e-4455-93f3-4263bdfe6491" width="450">  
+<img src="https://github.com/stefanov-sm/pg_services/assets/26185804/6f449df3-704e-4455-93f3-4263bdfe6491" width="480">  
 
-<kbd><img src="https://github.com/stefanov-sm/pg_services/assets/26185804/54f7d56c-bfda-4b63-8bbc-e3161309b589" width="600"></kbd>
+<kbd><img src="https://github.com/stefanov-sm/pg_services/assets/26185804/54f7d56c-bfda-4b63-8bbc-e3161309b589" width="650"></kbd>
