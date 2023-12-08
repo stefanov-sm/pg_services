@@ -2,9 +2,33 @@
   "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "pg_services manifest schema",
   "type": "object",
-  "required": ["settings", "arguments"],
+  "minProperties": 1,
   "additionalProperties": false,
   "properties":
+  {
+    "POST":
+    {
+      "type": "object",
+      "required": ["settings", "arguments"],
+      "additionalProperties": false,
+      "properties":
+      {
+        "settings":  {"$ref": "#/definitions/settings"},
+        "arguments": {"$ref": "#/definitions/arguments"}
+      }
+    },
+    "GET":
+    {
+      "type": "object",
+      "required": ["settings"],
+      "additionalProperties": false,
+      "properties":
+      {
+        "settings":  {"$ref": "#/definitions/settings"}
+      }
+    }
+  },
+  "definitions":
   {
     "settings":
     {
@@ -12,13 +36,12 @@
       "properties":
       {
         "rewrite":  {"type": "boolean"},
-        "method":   {"type": "string", "enum": ["GET", "POST"]},
         "token":    {"type": "string", "pattern": "^[A-Za-z0-9]{16,64}$"},
         "query":    {"type": "string", "pattern": "^([\\w,\\s-\\/]+\\.)+sql$"},
         "response": {"type": "string", "enum": ["table", "row", "value", "void"]},
         "iplist":
         {
-          "type": "array",
+          "type": "array", 
           "items":
           {
             "type": "string",
@@ -27,7 +50,7 @@
         }
       },
       "additionalProperties": false,
-      "required": ["method", "token", "query", "response"]
+      "required": ["token", "query", "response"]
     },
     "arguments":
     {

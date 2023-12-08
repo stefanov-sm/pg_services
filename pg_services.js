@@ -36,12 +36,13 @@ async function server_callback (req, res) {
       helpers.err(res, 'URL');
       return;
     }
-  	await handle_request(target_matches[1], arg_string, req, res);
+  	await handle_request(target_matches[1], arg_string.replace(PRUNE_RX, ''), req, res);
   }
   else helpers.err(res);
 }
 
 async function handle_request(target_name, request_data, req, res) {
+  const req_method = req.method;
   const post_request = (req.method === 'POST');
   const caller_ip = helpers.caller_ip(req);
   const pg_client = (!fs.existsSync(config_location + CONN_FILENAME)) ?
@@ -50,9 +51,9 @@ async function handle_request(target_name, request_data, req, res) {
   try
   {
     const service_config = JSON.parse(fs.readFileSync(services_location + target_name + CONFIG_SUFFIX, 'UTF8'));
-    const settings = service_config.settings;
+    const settings = service_config[req_method]?.settings;
 
-    if (settings.method.toUpperCase() !== req.method) {
+if (!settings) {
       helpers.err(res, 'method');
       return;
     }
@@ -67,7 +68,7 @@ async function handle_request(target_name, request_data, req, res) {
       if (!ip_ok) {
         helpers.err(res, 'IP');
         return;
-     }
+      }
     }
     // Manage and verify call arguments
     const call_arguments = post_request ? helpers.JSON_safe(request_data): request_data;
@@ -76,7 +77,7 @@ async function handle_request(target_name, request_data, req, res) {
           helpers.err(res, 'arguments');
           return;
       }
-      const args_result = helpers.manage_arguments(call_arguments, service_config.arguments);
+      const args_result = helpers.manage_arguments(call_arguments, service_config[req_method].arguments);
       if (!args_result.status) {
         helpers.err(res, args_result.message);
         return;
@@ -97,7 +98,7 @@ async function handle_request(target_name, request_data, req, res) {
         await pg_client.query({
                 name:'log_query',
                 text:fs.readFileSync(config_location + LOGGER_FILENAME, 'UTF8'), 
-                values:[caller_ip, target_name, request_data]
+                values:[target_name, caller_ip, req_method, request_data]
                });
       const db_response = await pg_client.query(query_object);
       switch (settings.response)
