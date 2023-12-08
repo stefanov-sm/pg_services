@@ -102,8 +102,10 @@ If this file is missing then [environment variables](https://node-postgres.com/f
    _service name_, _caller IP address_, _request method_,  and _call arguments_.
 
 ```sql
-INSERT INTO tests.pg_services_log (service_name, call_by, call_method, call_payload)
-VALUES ($1, $2, $3, $4);
+INSERT INTO tests.pg_services_log
+  (service_name, call_by, call_method, call_payload)
+VALUES
+  ($1, $2, $3, $4);
 ```
  - File _log.table.sql_, sample log table DDL (you must create one so that the logger SQL query can work)
 ```sql
