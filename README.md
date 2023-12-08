@@ -2,8 +2,7 @@
 ### PostgreSQL query-to-web-service generator under node.js  
 
 ## About
-***pg_services*** is a simple __vanilla platform with no dependencies__ that wraps and exposes parameterized SQL queries as JSON web services in a flexible and secure way. 
-The implementation and sample services run on [node.js](https://nodejs.org) and [PostgreSQL](https://www.postgresql.org/).  
+***pg_services*** is a very thin Node.js wrapper with no dependencies that exposes parameterized PostgreSQL queries as JSON web services in a flexible and secure way. Not fully REST compliant. Supports POST and GET request methods.
 
 Here is an example. Consider this JSON object and this trivial parameterized query with the object as an argument:
 ```
