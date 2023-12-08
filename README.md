@@ -259,10 +259,11 @@ JSON with this structure:
  "data": return data in JSON or error text
 }
 ```
-## POST arguments validation schema
+## Resources
+**POST arguments validation schema**  
 Arguments validation JSON schema from service manifest generator  
 `node path_to/arguments.schema.js path_to/<service manifest file>`  
-
+**Simple client for testing** [here](/restql/examples/restclient)
 
 ## Screenshots
 
