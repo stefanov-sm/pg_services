@@ -260,11 +260,10 @@ JSON with this structure:
 }
 ```
 ## Resources
-**POST arguments validation schema**  
-Arguments validation JSON schema from service manifest generator  
+- Arguments validation JSON schema from service manifest generator  
 `node path_to/arguments.schema.js path_to/<service manifest file>`  
 
-**Simple client for testing** [here](https://github.com/stefanov-sm/restql/tree/master/examples/restclient)
+- Simple PHP [client for testing](https://github.com/stefanov-sm/restql/tree/master/examples/restclient)
 
 ## Screenshots
 
